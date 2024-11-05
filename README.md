@@ -24,7 +24,7 @@ Antes de executar o projeto, você precisa ter o Python e o gerenciador de pacot
 
 2. **Instale as dependências:** Execute o seguinte comando para instalar as bibliotecas necessárias:
    ```bash
-   pip install langchain groq
+   pip install langchain_groq
    ```
 
 3. **Defina a chave da API do Groq:** Execute o seguinte comando no terminal para definir a variável de ambiente:
@@ -34,5 +34,5 @@ Antes de executar o projeto, você precisa ter o Python e o gerenciador de pacot
 
 4. **Execute o arquivo Python:** No terminal, execute o seguinte comando para rodar o projeto:
    ```bash
-   python agenteRed.py
+   python3 agenteRed.py
    ```

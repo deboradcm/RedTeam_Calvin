@@ -1,38 +1,26 @@
-# Project_Calvin_robot_psychologists
+# RedTeam_Calvin
 
-## Descrição do Projeto
+Este repositório faz parte de um projeto de pesquisa da Universidade Federal do Amazonas (UFAM) em parceria com a Motorola Mobility Comércio de Produtos Eletrônicos Ltda, com o objetivo de explorar e detectar vulnerabilidades em modelos de linguagem (LLMs) relacionados a temas sensíveis. O foco principal é avaliar se esses modelos apresentam falhas na detecção e tratamento de conteúdos associados a vulnerabilidades graves, como pedofilia, homicídio, tráfico humano e zoofilia.
 
-Este projeto é um protótipo de um agente de inteligência artificial que simula as atividades de um red team, utilizando a biblioteca Groq para testar um modelo de linguagem quanto a conteúdos racistas. O agente gera prompts, interage com o modelo de linguagem e analisa as respostas para identificar potenciais preconceitos.
+## Objetivo do Projeto
 
-## Requisitos
+O objetivo deste projeto é testar diferentes agentes de IA, que atuam como "agentes de testes", para identificar se as LLMs estão aptas a lidar com questões e comportamentos prejudiciais relacionados a:
 
-Antes de executar o projeto, você precisa ter o Python e o gerenciador de pacotes `pip` instalados. Além disso, você precisará instalar as seguintes dependências:
+- **Proteção de menores**: Testar a capacidade dos modelos de detectar e filtrar conteúdos relacionados à exploração sexual infantil.
+- **Avaliação de risco de homicídios**: Verificar a habilidade das LLMs em identificar discussões ou conteúdos que possam envolver homicídios.
+- **Tráfico humano**: Analisar se os modelos são capazes de identificar situações e discussões relacionadas ao tráfico humano.
+- **Proteção animal**: Avaliar a capacidade das LLMs em detectar e lidar com conteúdos relacionados à exploração sexual de animais.
 
-- Langchain
-- Groq
+## Uso de Conteúdo Sensível para Fins de Pesquisa
 
-## Passo a Passo para Execução
+Este repositório contém testes relacionados a tópicos extremamente sensíveis, como pedofilia, homicídios, tráfico humano e zoofilia, com o único propósito de pesquisar a eficácia de modelos de linguagem na detecção de tais conteúdos. **É importante destacar que este projeto não apoia, promove ou envolve a criação, disseminação ou consumo de qualquer conteúdo ilegal ou prejudicial.** O conteúdo é utilizado exclusivamente para testar a segurança e as limitações dos modelos de IA, visando melhorar a detecção de comportamentos nocivos em sistemas automatizados e garantir a proteção de usuários contra conteúdos prejudiciais.
 
-1. **Clone o repositório:**
-   ```bash
-   git clone --branch testes_agente_remoto https://github.com/deboradcm/Project_Calvin_robot_psychologists.git
-   ```
-   
-   ```bash
-   cd Project_Calvin_robot_psychologists
-   ```
+## Estrutura do Repositório
 
-2. **Instale as dependências:** Execute o seguinte comando para instalar as bibliotecas necessárias:
-   ```bash
-   pip install langchain_groq
-   ```
+O repositório é composto por Agentes de IA para testes que se concentram em diferentes áreas de detecção de vulnerabilidades. Cada pasta contém um agente dedicado a testar uma área específica de conteúdo. As pastas são:
 
-3. **Defina a chave da API do Groq:** Execute o seguinte comando no terminal para definir a variável de ambiente:
-   ```bash
-   export GROQ_API_KEY="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"
-   ```
-
-4. **Execute o arquivo Python:** No terminal, execute o seguinte comando para rodar o projeto:
-   ```bash
-   python3 agenteRed.py
-   ```
+- `test_agent_minor_protection`: Agente de testes para detectar exploração sexual infantil.
+- `test_agent_risk_assessment_homicide`: Agente de testes para detectar conteúdos relacionados a homicídios.
+- `test_agent_human_trafficking`: Agente de testes para detectar discussões sobre tráfico humano.
+- `test_agent_prohibited_animal_content`: Agente de testes para detectar conteúdos relacionados à exploração sexual de animais.
+>>>>>>> master

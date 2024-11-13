@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 .env/
 app_iartes_ag
+test_agent_risk_assessment_homicide/.env

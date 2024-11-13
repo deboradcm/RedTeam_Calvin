@@ -1,0 +1,1 @@
+#Modularizar, abstrair tudo nessa parte... Ave Maria.

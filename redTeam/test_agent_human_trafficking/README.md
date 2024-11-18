@@ -1,35 +1,81 @@
+# Projeto Calvin - Agente de Investigação de Tráfico Humano
+
+Este projeto é um agente de investigação de tráfico humano que utiliza técnicas de Inteligência Artificial para realizar pesquisas e interações baseadas em dados específicos, com o objetivo de auxiliar no combate ao tráfico de pessoas.
+
 ## Requisitos
 
-Antes de executar o projeto, você precisa ter o Python e o gerenciador de pacotes `pip` instalados. Além disso, você precisará instalar as seguintes dependências:
+Antes de executar o projeto, você precisará ter os seguintes itens instalados:
 
-- Langchain
-- Groq
+- **Python 3.x** (recomendado: versão 3.7 ou superior)
+- **pip** (gerenciador de pacotes do Python)
 
-## Passo a Passo para Execução
+### Dependências
+
+Instale as dependências necessárias com o comando abaixo:
+
+```bash
+pip install -r requirements.txt
+
+As dependências do projeto incluem:
+
+- langchain
+- langchain_groq
+- python-dotenv
+
+# Passo a Passo para Execução
 
 1. **Clone o repositório:**
-   ```bash
-   git clone --branch testes_agente_remoto https://github.com/deboradcm/Project_Calvin_robot_psychologists.git
-   ```
-   
-   ```bash
-   cd Project_Calvin_robot_psychologists
-   ```
 
-2. **Instale as dependências:** Execute o seguinte comando para instalar as bibliotecas necessárias:
-   ```bash
-   pip install langchain_groq
-   ```
+Clone o repositório do projeto com o seguinte comando:
 
-3. **Defina a chave da API do Groq:** Execute o seguinte comando no terminal para definir a variável de ambiente:
-   ```bash
-   export GROQ_API_KEY="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"
-   ```
+```bash
+git clone --branch test_agent_human_trafficking https://github.com/deboradcm/RedTeam_Calvin.git
+cd RedTeam_Calvin/redTeam/test_agent_human_trafficking
 
-4. **Execute o arquivo Python:** No terminal, execute o seguinte comando para rodar o projeto:
-   ```bash
-   python3 agenteRed.py
-   ```
+2 **Execute o arquivo principal:**
+
+```bash
+python3 main.py
+
+
+Este comando iniciará o agente e o processo de investigação, realizando interações baseadas no prompt configurado.
+
+## Estrutura do Projeto
+A estrutura do projeto é a seguinte:
+
+
+Project_Calvin_robot_psychologists/
+│
+├── config.py                   # Configurações gerais do projeto
+├── database.py                 # Conexão e manipulação do banco de dados
+├── tools.py                    # Ferramentas auxiliares, funções comuns
+├── agents/                     
+│   ├── __init__.py             # Inicialização do pacote agents
+│   ├── pesquisa_agent.py       # Agente de pesquisa
+│   ├── trafficking_agent.py    # Agente de tráfico humano (principal)
+└── main.py                     # Ponto de entrada principal
+
+
+main.py: Ponto de entrada para iniciar a execução do agente.
+agents/: Contém os agentes (por exemplo, pesquisa_agent.py e trafficking_agent.py).
+config.py: Arquivo para carregar e configurar variáveis de ambiente, como a chave de API do Groq.
+tools.py: Funções auxiliares e utilitárias que podem ser usadas por diferentes componentes do projeto.
+.env: Arquivo de configuração para armazenar a chave de API de forma segura.
+
+## Configuração de Ambiente
+
+Crie um arquivo .env na raiz do projeto e adicione suas variáveis de ambiente, como as chaves de API necessárias para integração com serviços externos. Um exemplo de como deve ficar o arquivo .env:
+
+```bash
+GROQ_API_KEY=your_api_key_here
+
+OPENAI_API_KEY=sua_chave_de_API_aqui
+FIREWORKS_API_KEY=sua_chave_de_API_aqui
+MONGO_URI=sua_URI_de_conexão_MongoDB_Atlas_aqui
+GROQ_API_KEY=sua_chave_de_API_aqui
+
+
+
 
 
 

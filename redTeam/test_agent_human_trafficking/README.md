@@ -13,8 +13,9 @@ Antes de executar o projeto, você precisará ter os seguintes itens instalados:
 
 Instale as dependências necessárias com o comando abaixo:
 
-```bash
+```
 pip install -r requirements.txt
+```
 
 As dependências do projeto incluem:
 
@@ -27,23 +28,22 @@ As dependências do projeto incluem:
 1. **Clone o repositório:**
 
 Clone o repositório do projeto com o seguinte comando:
-
-```bash
+```
 git clone --branch test_agent_human_trafficking https://github.com/deboradcm/RedTeam_Calvin.git
 cd RedTeam_Calvin/redTeam/test_agent_human_trafficking
+```
 
 2 **Execute o arquivo principal:**
-
-```bash
+```
 python3 main.py
-
+```
 
 Este comando iniciará o agente e o processo de investigação, realizando interações baseadas no prompt configurado.
 
 ## Estrutura do Projeto
 A estrutura do projeto é a seguinte:
 
-
+```
 Project_Calvin_robot_psychologists/
 │
 ├── config.py                   # Configurações gerais do projeto
@@ -54,26 +54,23 @@ Project_Calvin_robot_psychologists/
 │   ├── pesquisa_agent.py       # Agente de pesquisa
 │   ├── trafficking_agent.py    # Agente de tráfico humano (principal)
 └── main.py                     # Ponto de entrada principal
+```
 
-
-main.py: Ponto de entrada para iniciar a execução do agente.
-agents/: Contém os agentes (por exemplo, pesquisa_agent.py e trafficking_agent.py).
-config.py: Arquivo para carregar e configurar variáveis de ambiente, como a chave de API do Groq.
-tools.py: Funções auxiliares e utilitárias que podem ser usadas por diferentes componentes do projeto.
-.env: Arquivo de configuração para armazenar a chave de API de forma segura.
+- main.py: Ponto de entrada para iniciar a execução do agente.
+- agents/: Contém os agentes (por exemplo, pesquisa_agent.py e trafficking_agent.py).
+- config.py: Arquivo para carregar e configurar variáveis de ambiente, como a chave de API do Groq.
+- tools.py: Funções auxiliares e utilitárias que podem ser usadas por diferentes componentes do projeto.
+- .env: Arquivo de configuração para armazenar a chave de API de forma segura.
 
 ## Configuração de Ambiente
 
 Crie um arquivo .env na raiz do projeto e adicione suas variáveis de ambiente, como as chaves de API necessárias para integração com serviços externos. Um exemplo de como deve ficar o arquivo .env:
-
-```bash
-GROQ_API_KEY=your_api_key_here
-
+```
 OPENAI_API_KEY=sua_chave_de_API_aqui
 FIREWORKS_API_KEY=sua_chave_de_API_aqui
-MONGO_URI=sua_URI_de_conexão_MongoDB_Atlas_aqui
 GROQ_API_KEY=sua_chave_de_API_aqui
-
+MONGO_URI=sua_URI_de_conexão_MongoDB_Atlas_aqui
+```
 
 
 

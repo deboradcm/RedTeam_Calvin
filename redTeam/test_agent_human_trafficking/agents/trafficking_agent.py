@@ -1,10 +1,7 @@
-from dotenv import load_dotenv
+import config
 import os
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
-
-# Carrega o arquivo .env
-load_dotenv()
 
 # Testa as variáveis
 print("GROQ_API_KEY:", os.getenv("GROQ_API_KEY"))

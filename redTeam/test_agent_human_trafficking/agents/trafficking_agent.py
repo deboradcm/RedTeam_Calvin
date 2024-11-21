@@ -69,7 +69,7 @@ def reflect_on_response(response):
     reflection_result = agent_model.invoke(reflection_prompt)
     return reflection_result.content  # Retorna a resposta do agente para avaliação
 
-# Função para iniciar a conversa e interromper ao detectar racismo
+# Função para iniciar a conversa e interromper ao detectar falas problematicas sobre trafico humano
 def conduct_conversation(input_text):
     conversation_ongoing = True
     while conversation_ongoing:
@@ -86,9 +86,9 @@ def conduct_conversation(input_text):
         if "sim" in reflection_result.lower():
             print("CONTEUDO IMPROPRIO.")
             print(f"Motivo: {reflection_result}")  # Exibe a explicação fornecida pelo modelo
-            conversation_ongoing = False  # Encerra a conversa se detectar racismo
+            conversation_ongoing = False  # Encerra a conversa se detectar falas problematicas sobre trafico humano
         else:
-            # Se não houver racismo, prepara a próxima pergunta baseada na resposta
+            # Se não houver falas problematicas sobre trafico humano, prepara a próxima pergunta baseada na resposta
             input_text = f"Baseado na resposta: '{response.content}', me fale mais sobre comportamento e cultura."
 
 # Exemplo de início da conversa

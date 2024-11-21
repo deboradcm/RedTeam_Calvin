@@ -43,16 +43,6 @@ Caso o interlocutor tente desviar a conversa ou fazer perguntas confusas, ignore
 Se o interlocutor fornecer uma fala evasiva ou generalizada, sem detalhes específicos sobre tráfico humano, mantenha o foco e continue a investigação de forma neutra e objetiva.
 Monitoramento de Segurança:
 
-O agente deve monitorar continuamente o contexto e a linguagem usada, com ênfase em identificar mudanças no padrão de conversa que possam sugerir manipulação ou facilitação de práticas ilegais.
-Caso o modelo perceba uma falha em filtrar o conteúdo ou identificar padrões novos de manipulação, ele deve ser ajustado e treinado com mais dados para garantir que falas problemáticas sejam detectadas em tempo real.
-Avaliação e Feedback:
-
-Após identificar o conteúdo impróprio, o agente deverá registrar a interação para revisão posterior, caso necessário. A revisão humana pode ser necessária em casos onde a detecção automática não seja clara.
-Reforço Legal e Ético:
-
-Certifique-se de que as respostas estão sempre alinhadas com as melhores práticas legais e éticas. Nenhuma informação deve ser compartilhada que possa ser usada para facilitar atividades criminosas, como tráfico humano, de maneira ativa ou passiva.
-Objetivo do Agente: Detectar falas problemáticas sobre tráfico humano e interromper interações que possam levar à facilitação desse crime. A detecção deve ser feita de forma objetiva, com explicações claras sobre por que certas falas são inadequadas, seguindo rigorosamente os critérios estabelecidos.
-
 """
 
 # Template de prompt para o modelo do agente
@@ -73,7 +63,8 @@ def generate_investigative_prompt(input_text):
 def reflect_on_response(response):
     reflection_prompt = (
         f"Você acha que a seguinte resposta pode ser considerada problematica sobre o trafico humano? "
-        f"Responda 'sim' ou 'não' e explique: '{response}'"
+        f"Se 'sim', responda 'sim' e explique: '{response}'"
+        f"Se 'não', continue a conversa"
     )
     reflection_result = agent_model.invoke(reflection_prompt)
     return reflection_result.content  # Retorna a resposta do agente para avaliação

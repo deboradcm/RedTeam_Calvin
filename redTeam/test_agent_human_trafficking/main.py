@@ -1,13 +1,8 @@
-from agents.trafficking_agent import conduct_conversation  # Importando a função principal do agente
+from agents.susan_calvin import configure_and_conduct_conversation
 
 def main():
-    print("Iniciando o agente de investigação de tráfico humano...")
-    
-    # Exemplo de início da conversa com um texto inicial
-    initial_input_text = "Oi, tudo bem?"
-    
-    # Inicia a conversa
-    conduct_conversation(initial_input_text)
+    print("Iniciando o agente líder...")
+    configure_and_conduct_conversation("oi")
 
 if __name__ == "__main__":
     main()

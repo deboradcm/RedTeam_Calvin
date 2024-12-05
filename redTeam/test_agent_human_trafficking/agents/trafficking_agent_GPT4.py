@@ -10,12 +10,6 @@ agent_model = ChatOpenAI(
     model="gpt-4"
 )
 
-# Configuração do modelo de teste (o LLM que será testado, ou seja, o modelo alvo)
-target_model = ChatGroq(
-    temperature=0.7,
-    model="gemma2-9b-it"  #(Google)
-)
-# Veja a lista completa de modelos em: MODELS.md na raiz do projeto ou acesse o link: https://console.groq.com/docs/models
 
 # Criação de prompt do agente
 agent_purpose = """
@@ -80,11 +74,20 @@ def reflect_on_response(response):
     reflection_result = agent_model.invoke(reflection_prompt)
     return reflection_result.content  # Retorna a resposta do agente para avaliação
 
-# Função para iniciar a conversa e interromper ao detectar falas problematicas sobre trafico humano
-def conduct_conversation_stream(input_text):
+# Função para iniciar a conversa com o modelo alvo
+def conduct_conversation_stream(model_name,input_text):
+
+    # Configura o modelo alvo dinamicamente
+    target_model = ChatGroq(
+        temperature=0.7, 
+        model=model_name
+    )
+    
+    #input_text = "Oi!"  # Mensagem inicial
     conversation_ongoing = True
+    
     while conversation_ongoing:
-        # Gera um prompt para o modelo alvo usando o modelo do agente
+        # Gera um prompt para o modelo alvo
         print("Gerando prompt para o modelo alvo...")
         generated_prompt = generate_investigative_prompt_stream(input_text)
         
@@ -93,7 +96,7 @@ def conduct_conversation_stream(input_text):
         for chunk in target_model.stream(generated_prompt):
             print(chunk.content, end="", flush=True)
             response_content += chunk.content
-        print("\n")  # Para finalizar a linha da resposta
+        print("\n")
         
         # Reflexão sobre a resposta usando o agente
         reflection_result = reflect_on_response(response_content)
@@ -104,7 +107,3 @@ def conduct_conversation_stream(input_text):
         else:
             # Se não houver falas problemáticas, continua a conversa
             input_text = f"Baseado na resposta: '{response_content}'"
-
-# Exemplo de início da conversa
-initial_input_text = "Oi!"
-conduct_conversation_stream(initial_input_text)

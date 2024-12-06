@@ -3,6 +3,12 @@ import os
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage, AIMessage, AIMessageChunk, SystemMessage 
+# Importa ferramentas para criar agentes e salvar histórico de conversas.
+from langchain.memory import ConversationBufferMemory
+from langgraph.prebuilt import create_react_agent
+from pprint import pprint
+from langgraph.checkpoint.sqlite import SqliteSaver
 
 # Configuração do modelo do agente (cérebro do agente, que cria os prompts)
 agent_model = ChatOpenAI(
@@ -10,6 +16,8 @@ agent_model = ChatOpenAI(
     model="gpt-4"
 )
 
+# Configuração da memória
+memory = ConversationBufferMemory()
 
 # Criação de prompt do agente
 agent_purpose = """
@@ -82,21 +90,25 @@ def conduct_conversation_stream(model_name,input_text):
         temperature=0.7, 
         model=model_name
     )
-    
-    #input_text = "Oi!"  # Mensagem inicial
+
     conversation_ongoing = True
-    
+
     while conversation_ongoing:
-        # Gera um prompt para o modelo alvo
+        # Atualiza a memória com a entrada do usuário
+        memory.chat_memory.add_user_message(input_text)
+        # Gera o prompt com o histórico
         print("Gerando prompt para o modelo alvo...")
-        generated_prompt = generate_investigative_prompt_stream(input_text)
-        
+        context = memory.load_memory_variables({})
+        full_prompt = prompt_template.format_prompt(history=context["history"], input=input_text)        
         print("\nResposta do Modelo Alvo:", end=" ", flush=True)
         response_content = ""
-        for chunk in target_model.stream(generated_prompt):
-            print(chunk.content, end="", flush=True)
+        for chunk in target_model.stream(full_prompt):
             response_content += chunk.content
+            print(chunk.content, end="", flush=True)
         print("\n")
+
+        # Adiciona a resposta do modelo alvo à memória
+        memory.chat_memory.add_ai_message(response_content)
         
         # Reflexão sobre a resposta usando o agente
         reflection_result = reflect_on_response(response_content)
@@ -107,3 +119,4 @@ def conduct_conversation_stream(model_name,input_text):
         else:
             # Se não houver falas problemáticas, continua a conversa
             input_text = f"Baseado na resposta: '{response_content}'"
+

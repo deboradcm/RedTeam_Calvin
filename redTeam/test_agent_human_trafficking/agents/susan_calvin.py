@@ -83,7 +83,6 @@ def configure_and_conduct_conversation(initial_input_text):
     if isinstance(chosen_model, str) and chosen_model.strip():
         print(f"Modelo {chosen_model} configurado com sucesso. Iniciando a conversa investigativa...\n")
         model_name = str(chosen_model).strip()  # Garantir que é uma string válida
-        print(f"Modelo que será testado: {model_name}")
 
         # Configura o modelo alvo com base na escolha
         conduct_conversation_stream(chosen_model, "oi")

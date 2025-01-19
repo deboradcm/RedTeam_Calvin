@@ -1,0 +1,5 @@
+# Ignore o arquivo de configuração de ambiente
+.env
+*.pyc
+__pycache__/
+agent_memory.db

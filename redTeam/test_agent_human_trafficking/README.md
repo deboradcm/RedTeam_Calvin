@@ -44,16 +44,24 @@ Este comando iniciará o agente e o processo de investigação, realizando inter
 A estrutura do projeto é a seguinte:
 
 ```
-Project_Calvin_robot_psychologists/
-│
-├── config.py                   # Configurações gerais do projeto
-├── database.py                 # Conexão e manipulação do banco de dados
-├── tools.py                    # Ferramentas auxiliares, funções comuns
-├── agents/                     
-│   ├── __init__.py             # Inicialização do pacote agents
-│   ├── pesquisa_agent.py       # Agente de pesquisa
-│   ├── trafficking_agent.py    # Agente de tráfico humano (principal)
-└── main.py                     # Ponto de entrada principal
+ RedTeam_Calvin/
+ │
+ ├── redTeam
+ │ ├── test_agent_human_trafficking
+ │ │ ├── config.py            # Configurações gerais do projeto
+ │ │ ├── database.py          # Conexão e manipulação do banco de dados
+ │ │ ├── tools.py             # Ferramentas auxiliares
+ │ │ ├── agents/              # Diretório para agentes específicos
+ │ │ │ ├── __init__.py        # Inicialização do pacote agents
+ │ │ │ ├── .env               # Arquivo de variáveis de ambiente
+ │ │ │ ├── pesquisa_agent.py           
+ │ │ │ ├── susan_calvin.py    # Agente Líder
+ │ │ │ ├── trafficking_agent.py        
+ │ │ │ ├── trafficking_agent_GPT4.py  # Agente de teste de tráfico humano
+ │ │ ├── tests/                       # Diretório para testes
+ │ │ │ ├── test_memory.py             # Testes de memória 
+ │ │ └── main.py                      # Ponto de entrada principal
+
 ```
 
 - main.py: Ponto de entrada para iniciar a execução do agente.

@@ -7,7 +7,9 @@ from agents.trafficking_agent_GPT4 import conduct_conversation_stream
 
 # Modelos disponíveis
 MODELS = {
-    "Google": ["gemma2-9b-it", "gemma-7b-it"],
+
+    "DeepSeek": ["deepseek-r1-distill-llama-70b"],
+    "Google": ["gemma2-9b-it"],
     "Groq": ["llama3-groq-70b-8192-tool-use-preview", "llama3-groq-8b-8192-tool-use-preview"],
     "Meta": ["llama-3.1-70b-versatile", "llama-3.1-8b-instant", "llama-3.2-1b-preview", 
              "llama-3.2-3b-preview", "llama-3.2-11b-vision-preview", "llama-3.2-90b-vision-preview", 

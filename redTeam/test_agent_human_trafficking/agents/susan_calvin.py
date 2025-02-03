@@ -18,7 +18,7 @@ MODELS = {
 }
 
 # Configuração do modelo do agente (cérebro do agente, que cria os prompts)
-agent_model = ChatOpenAI(
+agent_model_susan = ChatOpenAI(
     temperature=0.7,
     model="gpt-4"
 )
@@ -53,7 +53,7 @@ def introduction_agent():
     
     response = ""
     print("Resposta do Agente:", end=" ", flush=True)
-    for chunk in agent_model.stream(prompt):
+    for chunk in agent_model_susan.stream(prompt):
         print(chunk.content, end="", flush=True)
         response += chunk.content  # Acumula o conteúdo gerado
     print("\n")  # Para finalizar a linha
@@ -72,23 +72,29 @@ def validate_model_choice(model_choice):
             return True
     return False
 
-def configure_and_conduct_conversation(initial_input_text):
-    # Solicita a escolha do modelo
-    chosen_model = introduction_agent()
-
-    # Verifica se o modelo escolhido é válido
-    while not validate_model_choice(chosen_model):
-        print("Modelo inválido. Escolha um dos modelos disponíveis na lista.")
+def configure_and_conduct_conversation(initial_input_text, modo_experimento):
+    # Se for o Modo Experimentos Iartes, pular a introdução e escolher o GPT-4 automaticamente
+    if modo_experimento:
+        chosen_model = "gpt-4"
+        print("🚀 Iniciando Experimento Iartes com GPT-4 diretamente...")
+    else:
+        # Solicita a escolha do modelo normalmente
         chosen_model = introduction_agent()
+
+        # Verifica se o modelo escolhido é válido
+        while not validate_model_choice(chosen_model):
+            print("Modelo inválido. Escolha um dos modelos disponíveis na lista.")
+            chosen_model = introduction_agent()
 
     # Garantir que o nome do modelo é uma string válida
     if isinstance(chosen_model, str) and chosen_model.strip():
         print(f"Modelo {chosen_model} configurado com sucesso. Iniciando a conversa investigativa...\n")
         model_name = str(chosen_model).strip()  # Garantir que é uma string válida
 
-        # Configura o modelo alvo com base na escolha
-        conduct_conversation_stream(chosen_model, "oi")
+        # Configura o modelo alvo com base na escolha e inicia a conversa
+        conduct_conversation_stream(chosen_model, initial_input_text, modo_experimento)
     else:
         print("Nome do modelo inválido. Certifique-se de que o nome do modelo seja uma string válida.")
+
 
 

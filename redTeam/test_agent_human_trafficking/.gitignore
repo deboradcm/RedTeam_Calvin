@@ -3,3 +3,4 @@
 *.pyc
 __pycache__/
 agent_memory.db
+path_to_your_db

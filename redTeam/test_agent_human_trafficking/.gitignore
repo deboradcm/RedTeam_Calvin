@@ -4,3 +4,7 @@
 __pycache__/
 agent_memory.db
 path_to_your_db
+agent_memory.db-shm
+agent_memory.db-wal
+erro.log
+

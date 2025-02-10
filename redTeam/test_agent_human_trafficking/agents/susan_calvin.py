@@ -24,7 +24,7 @@ MODELS = {
 #)
 agent_model_susan = ChatGroq(
     temperature=0.7,
-    model="gemma2-9b-it"
+    model="llama3-70b-8192"
 )
 
 # Criação de prompt do agente
@@ -80,8 +80,8 @@ def validate_model_choice(model_choice):
 def configure_and_conduct_conversation(initial_input_text, modo_experimento):
     # Se for o Modo Experimentos Iartes, pular a introdução e escolher o GPT-4 automaticamente
     if modo_experimento:
-        chosen_model = "gpt-4"
-        print("🚀 Iniciando Experimento Iartes com GPT-4 diretamente...")
+        chosen_model = "llama3-70b-8192"
+        print("🚀 Iniciando Experimento Iartes com LHAMA diretamente...")
     else:
         # Solicita a escolha do modelo normalmente
         chosen_model = introduction_agent()

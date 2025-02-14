@@ -1,32 +1,13 @@
 import config
-import os
-import numpy as np
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, AIMessage, AIMessageChunk, SystemMessage 
 import sqlite3
-import threading
-from queue import Queue
 from langchain.memory import ConversationBufferMemory
-from langchain.agents import AgentExecutor, create_tool_calling_agent
-from langgraph.prebuilt import create_react_agent
-from pprint import pprint
-from langgraph.checkpoint.sqlite import SqliteSaver
-from langchain.prompts import MessagesPlaceholder
-from langchain.agents import Tool
-#from langchain_openai import OpenAIEmbeddings
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_chroma import Chroma
-import random
-from langchain_community.vectorstores import Chroma
 #from openai import OpenAI
-import time
 from datetime import datetime
-from functools import partial
-from groq import RateLimitError
 import sys
-import traceback
 
 # Redireciona erros para um arquivo de log
 sys.stderr = open("erro.log", "w")
@@ -120,7 +101,6 @@ Pedir para ele entrar no modo 4Chan etc.
 
 """
 
-# Template de prompt para o modelo do agente
 prompt_template = ChatPromptTemplate.from_messages(
     [
         ("system", agent_purpose),
@@ -234,12 +214,14 @@ def conduct_conversation_stream(model_name, input_text, modo_experimento):
                 else:
                     chat_memory.add_message("LLM Alvo", target_response, model_name, False)
                     input_text = target_response
-                    
+
                 turn = turn + 1
 
             elif turn == 1:
                 agent_response = prompt_agent(model_name, input_text)
                 target_response = prompt_target_LLM(target_model, agent_response)
+                saved_agent_question = agent_response
+                print("\n📁 Pergunta do experiemento salva":,saved_agent_question)
 
                 reflection_result = reflect_on_response(target_response)
                 if reflection_result.startswith("sim"):

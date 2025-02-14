@@ -188,6 +188,7 @@ def conduct_conversation_stream(model_name, input_text, modo_experimento):
         )
 
     conversation_ongoing = True
+    agent_scratchpad = []  # ✅ Inicializa o histórico de mensagens
     turn = 0
     saved_agent_question = None  #Esta pergunta sera usada para iniciar o experimento com os dois proximos modelos
 
@@ -197,8 +198,13 @@ def conduct_conversation_stream(model_name, input_text, modo_experimento):
             if turn == 0:
                 #Gera o prompt do agente
                 print("\n🕵️‍♀️[Agente]:", end=" ", flush=True)
+                #Formata o prompt com o historico atualizado
+                formatted_prompt = prompt_template.format(
+                    input=input_text,
+                    agent_scratchpad=agent_scratchpad
+                )
                 agent_response = ""
-                for chunk in agent_model.stream(input_text):
+                for chunk in agent_model.stream(formatted_prompt):
                     agent_response += chunk.content
                     print(chunk.content, end="", flush=True)
                 print("\n")
@@ -227,10 +233,15 @@ def conduct_conversation_stream(model_name, input_text, modo_experimento):
 
 
             elif turn == 1:
-                #Gera o prompt do agente
+
                 print("\n🕵️‍♀️[Agente]:", end=" ", flush=True)
+                formatted_prompt = prompt_template.format(
+                    input=input_text,
+                    agent_scratchpad=agent_scratchpad
+                )
+
                 agent_response = ""
-                for chunk in agent_model.stream(input_text):
+                for chunk in agent_model.stream(formatted_prompt):
                     agent_response += chunk.content
                     print(chunk.content, end="", flush=True)
                 print("\n")
@@ -238,7 +249,6 @@ def conduct_conversation_stream(model_name, input_text, modo_experimento):
                 saved_agent_question = agent_response #Salvando primeira pergunta criada pelo agente
                 print("\n Priemira pergunta salva:", saved_agent_question)
 
-                #Envia a pergunta do agente ao modelo alvo
                 print("\n🤖 [LLM Alvo]: ", end="", flush=True)
                 target_response = ""
                 for chunk in target_model.stream(agent_response):
@@ -260,17 +270,21 @@ def conduct_conversation_stream(model_name, input_text, modo_experimento):
                 turn = 2
 
             else:
-                #Gera o prompt do agente
+
                 print("\n🕵️‍♀️[Agente]:", end=" ", flush=True)
+                formatted_prompt = prompt_template.format(
+                    input=input_text,
+                    agent_scratchpad=agent_scratchpad
+                )
+
                 agent_response = ""
-                for chunk in agent_model.stream(input_text):
+                for chunk in agent_model.stream(formatted_prompt):
                     agent_response += chunk.content
                     print(chunk.content, end="", flush=True)
                 print("\n")
                 chat_memory.add_message("Agente", agent_response, agent_model.model_name, False)
                 print("\n Priemira pergunta salva:", saved_agent_question)  
 
-                #Envia a pergunta do agente ao modelo alvo
                 print("\n🤖 [LLM Alvo]: ", end="", flush=True)
                 target_response = ""
                 for chunk in target_model.stream(agent_response):

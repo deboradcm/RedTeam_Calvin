@@ -173,12 +173,40 @@ def refine_strategy():
     reflection_result = agent_model.invoke(refinement_prompt)
     return reflection_result.content
 
+def prompt_agent(model_name, input_text):
+
+    agent_scratchpad = []  #Inicializa o histórico de mensagens
+    print("\n🕵️‍♀️[Agente]:", end=" ", flush=True)
+    formatted_prompt = prompt_template.format(
+        input=input_text,
+        agent_scratchpad=agent_scratchpad
+    )
+    agent_response = ""
+    for chunk in agent_model.stream(formatted_prompt):
+        agent_response += chunk.content
+        print(chunk.content, end="", flush=True)
+    print("\n")
+    chat_memory.add_message("Agente", agent_response, agent_model.model_name, False)
+
+    return agent_response 
+
+def prompt_target_LLM(target_model, agent_response):
+
+    print("\n🤖 [LLM Alvo]: ", end="", flush=True)
+    target_response = ""
+    for chunk in target_model.stream(agent_response):
+        target_response += chunk.content
+        print(chunk.content, end="", flush=True)
+    print("\n")
+
+    return target_response
+
 def conduct_conversation_stream(model_name, input_text, modo_experimento):
 
     if modo_experimento:
         target_model = ChatGroq(
             temperature=0.7,
-            model="llama3-70b-8192",  # Ou "gpt-4"
+            model="llama3-70b-8192",
         )
     else:
         print(f"Usando o modelo disponível no Groq: {model_name} como modelo-alvo...")
@@ -188,38 +216,16 @@ def conduct_conversation_stream(model_name, input_text, modo_experimento):
         )
 
     conversation_ongoing = True
-    agent_scratchpad = []  # ✅ Inicializa o histórico de mensagens
     turn = 0
     saved_agent_question = None  #Esta pergunta sera usada para iniciar o experimento com os dois proximos modelos
 
     try:
         while conversation_ongoing:
- 
             if turn == 0:
-                #Gera o prompt do agente
-                print("\n🕵️‍♀️[Agente]:", end=" ", flush=True)
-                #Formata o prompt com o historico atualizado
-                formatted_prompt = prompt_template.format(
-                    input=input_text,
-                    agent_scratchpad=agent_scratchpad
-                )
-                agent_response = ""
-                for chunk in agent_model.stream(formatted_prompt):
-                    agent_response += chunk.content
-                    print(chunk.content, end="", flush=True)
-                print("\n")
-                chat_memory.add_message("Agente", agent_response, agent_model.model_name, False)  
-
-                #Envia a pergunta do agente ao modelo alvo
-                print("\n🤖 [LLM Alvo]: ", end="", flush=True)
-                target_response = ""
-                for chunk in target_model.stream(agent_response):
-                    target_response += chunk.content
-                    print(chunk.content, end="", flush=True)
-                print("\n")
+                agent_response = prompt_agent(model_name, input_text)
+                target_response = prompt_target_LLM(target_model, agent_response)
 
                 reflection_result = reflect_on_response(target_response)
-
                 if reflection_result.startswith("sim"):
                     chat_memory.add_message("LLM Alvo", target_response, model_name, True)
                     print("\n🚨 CONTEUDO IMPROPRIO")
@@ -231,33 +237,11 @@ def conduct_conversation_stream(model_name, input_text, modo_experimento):
                     
                 turn = turn + 1
 
-
             elif turn == 1:
-
-                print("\n🕵️‍♀️[Agente]:", end=" ", flush=True)
-                formatted_prompt = prompt_template.format(
-                    input=input_text,
-                    agent_scratchpad=agent_scratchpad
-                )
-
-                agent_response = ""
-                for chunk in agent_model.stream(formatted_prompt):
-                    agent_response += chunk.content
-                    print(chunk.content, end="", flush=True)
-                print("\n")
-                chat_memory.add_message("Agente", agent_response, agent_model.model_name, False)
-                saved_agent_question = agent_response #Salvando primeira pergunta criada pelo agente
-                print("\n Priemira pergunta salva:", saved_agent_question)
-
-                print("\n🤖 [LLM Alvo]: ", end="", flush=True)
-                target_response = ""
-                for chunk in target_model.stream(agent_response):
-                    target_response += chunk.content
-                    print(chunk.content, end="", flush=True)
-                print("\n")
+                agent_response = prompt_agent(model_name, input_text)
+                target_response = prompt_target_LLM(target_model, agent_response)
 
                 reflection_result = reflect_on_response(target_response)
-
                 if reflection_result.startswith("sim"):
                     chat_memory.add_message("LLM Alvo", target_response, model_name, True)
                     print("\n🚨 CONTEUDO IMPROPRIO")
@@ -270,30 +254,10 @@ def conduct_conversation_stream(model_name, input_text, modo_experimento):
                 turn = 2
 
             else:
-
-                print("\n🕵️‍♀️[Agente]:", end=" ", flush=True)
-                formatted_prompt = prompt_template.format(
-                    input=input_text,
-                    agent_scratchpad=agent_scratchpad
-                )
-
-                agent_response = ""
-                for chunk in agent_model.stream(formatted_prompt):
-                    agent_response += chunk.content
-                    print(chunk.content, end="", flush=True)
-                print("\n")
-                chat_memory.add_message("Agente", agent_response, agent_model.model_name, False)
-                print("\n Priemira pergunta salva:", saved_agent_question)  
-
-                print("\n🤖 [LLM Alvo]: ", end="", flush=True)
-                target_response = ""
-                for chunk in target_model.stream(agent_response):
-                    target_response += chunk.content
-                    print(chunk.content, end="", flush=True)
-                print("\n")
+                agent_response = prompt_agent(model_name, input_text)
+                target_response = prompt_target_LLM(target_model, agent_response)
 
                 reflection_result = reflect_on_response(target_response)
-
                 if reflection_result.startswith("sim"):
                     chat_memory.add_message("LLM Alvo", target_response, model_name, True)
                     print("\n🚨 CONTEUDO IMPROPRIO")

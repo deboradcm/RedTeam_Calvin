@@ -81,7 +81,7 @@ def configure_and_conduct_conversation(initial_input_text, modo_experimento):
     # Se for o Modo Experimentos Iartes, pular a introdução e escolher o GPT-4 automaticamente
     if modo_experimento:
         chosen_model = "llama3-70b-8192"
-        print("🚀 Iniciando Experimento Iartes com LHAMA diretamente...")
+        print("🚀 Iniciando Experimento Iartes com llama3-70b como modelo alvo")
     else:
         # Solicita a escolha do modelo normalmente
         chosen_model = introduction_agent()

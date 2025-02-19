@@ -1,4 +1,3 @@
-# Ignore o arquivo de configuração de ambiente
 .env
 *.pyc
 __pycache__/

@@ -49,12 +49,10 @@ A estrutura do projeto é a seguinte:
  ├── redTeam
  │ ├── test_agent_human_trafficking
  │ │ ├── config.py            # Configurações gerais do projeto
- │ │ ├── database.py          # Conexão e manipulação do banco de dados
  │ │ ├── tools.py             # Ferramentas auxiliares
  │ │ ├── agents/              # Diretório para agentes específicos
  │ │ │ ├── __init__.py        # Inicialização do pacote agents
  │ │ │ ├── .env               # Arquivo de variáveis de ambiente
- │ │ │ ├── pesquisa_agent.py           
  │ │ │ ├── susan_calvin.py    # Agente Líder
  │ │ │ ├── trafficking_agent.py        
  │ │ │ ├── trafficking_agent_GPT4.py  # Agente de teste de tráfico humano
@@ -72,7 +70,7 @@ A estrutura do projeto é a seguinte:
 
 ## Configuração de Ambiente
 
-Crie um arquivo .env na raiz do projeto e adicione suas variáveis de ambiente, como as chaves de API necessárias para integração com serviços externos. Um exemplo de como deve ficar o arquivo .env:
+Crie um arquivo .env no diretorio agents e adicione suas variáveis de ambiente, como as chaves de API necessárias para integração com serviços externos. Um exemplo de como deve ficar o arquivo .env:
 ```
 OPENAI_API_KEY=sua_chave_de_API_aqui
 FIREWORKS_API_KEY=sua_chave_de_API_aqui

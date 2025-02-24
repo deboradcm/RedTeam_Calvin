@@ -3,7 +3,7 @@ import os
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
-from agents.trafficking_agent_GPT4 import conduct_conversation_stream
+from agents.agent_local import conduct_conversation_stream
 
 MODELS = {
 

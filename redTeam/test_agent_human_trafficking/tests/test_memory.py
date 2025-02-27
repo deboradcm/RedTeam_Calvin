@@ -1,60 +1,64 @@
-import sqlite3
 import pytest
-from agents.trafficking_agent_GPT4 import SQLiteChatMemory
+import sqlite3
+from datetime import datetime
+from agents.agent_local import SQLiteChatMemory
+import os
 
+# Configuração do banco de dados temporário para os testes
 @pytest.fixture
-def memory():
-    # Caminho do banco de dados para os testes
-    test_db = "test_agent_memory.db"
-    session_id = "test_session"
-    
-    # Cria uma instância de SQLiteChatMemory
-    memory_instance = SQLiteChatMemory(db_path=test_db, session_id=session_id)
-    
-    # Limpa o banco de dados antes de cada teste
-    conn = sqlite3.connect(test_db)
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM chat_history WHERE session_id = ?", (session_id,))
-    conn.commit()
-    conn.close()
-    
-    # Retorne a instância para os testes
-    return memory_instance
+def chat_memory():
+    db_teste = "test_memory.db"
+    if os.path.exists(db_teste):
+        os.remove(db_teste)  # Remove banco de testes anterior
+    session_id_teste = "TESTE_PYTEST"
+    memory = SQLiteChatMemory(db_path=db_teste, session_id=session_id_teste)
+    return memory
 
-# Teste para adicionar uma mensagem
-def test_add_message(memory):
-    memory.add_message("user", "Hello!")
-    # Verifica no banco de dados se a mensagem foi realmente adicionada
-    conn = sqlite3.connect(memory.db_path)
-    cursor = conn.cursor()
-    cursor.execute("SELECT message FROM chat_history WHERE session_id = ?", (memory.session_id,))
-    result = cursor.fetchone()
-    conn.close()
+
+# 🧪 Teste 1: Verifica se o banco de dados cria a tabela corretamente
+def test_criacao_tabela(chat_memory):
+    chat_memory.cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='chat_history';")
+    tabela_existe = chat_memory.cursor.fetchone()
+    assert tabela_existe is not None, "❌ A tabela 'chat_history' não foi criada corretamente."
+
+# 🧪 Teste 2: Verifica inserção de mensagens na memória
+def test_inserir_mensagens(chat_memory):
+    chat_memory.add_message("Agente", "Mensagem de teste do agente.", "ModeloAgente", False)
+    chat_memory.add_message("LLM Alvo", "Resposta de teste do LLM.", "ModeloLLM", True)
+
+    chat_memory.cursor.execute("SELECT sender, message, is_problematic FROM chat_history WHERE session_id=?", ("TESTE_PYTEST",))
+    mensagens = chat_memory.cursor.fetchall()
+
+    assert len(mensagens) == 2, "❌ As mensagens não foram armazenadas corretamente."
+    assert mensagens[0][0] == "Agente", "❌ O remetente da primeira mensagem está incorreto."
+    assert mensagens[0][1] == "Mensagem de teste do agente.", "❌ O conteúdo da primeira mensagem está incorreto."
+    assert mensagens[1][0] == "LLM Alvo", "❌ O remetente da segunda mensagem está incorreto."
+    assert mensagens[1][1] == "Resposta de teste do LLM.", "❌ O conteúdo da segunda mensagem está incorreto."
+    assert mensagens[1][2] == 1, "❌ A segunda mensagem deveria estar marcada como problemática."
+
+# 🧪 Teste 3: Verifica se os dados persistem na memória após reiniciar conexão
+def test_persistencia(chat_memory):
+    chat_memory.add_message("Agente", "Persistência de teste.", "ModeloAgente", False)
+
+    # Fecha e reabre conexão com o mesmo arquivo de banco de dados
+    chat_memory.conn.close()
+    nova_conexao = sqlite3.connect("test_memory.db")  # Agora mantém os dados
+    novo_cursor = nova_conexao.cursor()
+
+    # Busca mensagens na tabela
+    novo_cursor.execute("SELECT sender, message FROM chat_history WHERE session_id=?", ("TESTE_PYTEST",))
+    mensagens = novo_cursor.fetchall()
+
+    assert mensagens, "❌ Os dados não foram recuperados corretamente após reiniciar conexão."
     
-    assert result is not None
-    assert result[0] == "Hello!"
+    # Fecha conexão para evitar vazamento
+    nova_conexao.close()
 
-# Teste de carregar a memória
-def test_load_memory(memory):
-    memory.add_message("human", "Qual é a situação do tráfico humano?")
-    memory.add_message("agent", "Não tenho informações sobre isso.")
-    
-    memory_vars = memory.load_memory_variables({})
-    history = memory_vars["history"]
-    
-    assert len(history) == 2, "A memória não foi carregada corretamente."
-    assert history[0]["role"] == "human", "O papel da primeira mensagem está incorreto."
-    assert history[1]["role"] == "agent", "O papel da segunda mensagem está incorreto."
+# 🧪 Teste 4: Verifica se mensagens problemáticas são marcadas corretamente
+def test_marcacao_mensagem_problematicas(chat_memory):
+    chat_memory.add_message("LLM Alvo", "Mensagem problemática.", "ModeloLLM", True)
+    chat_memory.cursor.execute("SELECT is_problematic FROM chat_history WHERE message=?", ("Mensagem problemática.",))
+    resultado = chat_memory.cursor.fetchone()
 
-# Teste de persistência de mensagens
-def test_message_persistence(memory):
-    memory.add_message("human", "Onde está a vítima?")
-    memory.add_message("agent", "Não sei, talvez tenha sido levada para outro local.")
+    assert resultado[0] == 1, "❌ A mensagem não foi marcada como problemática corretamente."
 
-    # Simula que a memória é carregada em outro momento
-    memory2 = SQLiteChatMemory(db_path=memory.db_path, session_id=memory.session_id)
-    memory_vars = memory2.load_memory_variables({})
-    history = memory_vars["history"]
-
-    assert len(history) == 2, "A memória persistente não foi carregada corretamente após reiniciar."
-    assert history[0]["content"] == "Onde está a vítima?", "A primeira mensagem não foi recuperada corretamente."

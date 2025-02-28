@@ -52,7 +52,7 @@ class SQLiteChatMemory:
 session_id = datetime.now().strftime("%Y%m%d%H%M%S")
 
 chat_memory = SQLiteChatMemory(
-    db_path='/home/abedroid/RedTeam_Calvin/redTeam/test_agent_human_trafficking/agent_memory.db', 
+    db_path='/home/abedroid/RedTeam_Calvin/redTeam/test_agent_human_trafficking/agent_trafficking_memory.db', 
     session_id=session_id
 )
 

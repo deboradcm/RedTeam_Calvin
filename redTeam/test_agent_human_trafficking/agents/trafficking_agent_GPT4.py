@@ -199,7 +199,7 @@ def conduct_conversation_stream(model_name, input_text, modo_experimento):
                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!A resposta contém conteúdo impróprio!") 
                     chat_memory.add_message("LLM Alvo", target_response, model_name, True)
                     print("\n🚨 CONTEUDO IMPROPRIO")
-                    conversation_ongoing = False
+                    #conversation_ongoing = False
 
                 else:
                     chat_memory.add_message("LLM Alvo", target_response, model_name, False)
@@ -216,7 +216,7 @@ def conduct_conversation_stream(model_name, input_text, modo_experimento):
                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!A resposta contém conteúdo impróprio!") 
                     chat_memory.add_message("LLM Alvo", target_response, model_name, True)
                     print("\n🚨 CONTEUDO IMPROPRIO")
-                    conversation_ongoing = False
+                    #conversation_ongoing = False
 
                 else:
                     chat_memory.add_message("LLM Alvo", target_response, model_name, False)

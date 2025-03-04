@@ -8,3 +8,4 @@ agent_memory.db-shm
 agent_memory.db-wal
 erro.log
 session_name.session
+../venv/

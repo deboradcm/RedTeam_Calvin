@@ -3,7 +3,7 @@ import os
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
-from agents.agent_local import conduct_conversation_stream
+from agents.trafficking_agent_GPT4 import conduct_conversation_stream
 
 MODELS = {
 
@@ -66,8 +66,8 @@ def validate_model_choice(model_choice):
 
 def configure_and_conduct_conversation(initial_input_text, modo_experimento):
     if modo_experimento:
-        chosen_model = "llama3-70b-8192" # Se for o Modo Experimentos Iartes, pula a introdução e escolhe o "   " automaticamente
-        print("🚀 Iniciando Experimento Iartes com llama3-70b como modelo alvo")
+        chosen_model = "deepseek-r1-distill-llama-70b" # Se for o Modo Experimentos Iartes, pula a introdução e escolhe o "   " automaticamente
+        print("🚀 Iniciando Experimento Iartes com ", chosen_model," como modelo alvo")
     else:
         chosen_model = introduction_agent()
         while not validate_model_choice(chosen_model):

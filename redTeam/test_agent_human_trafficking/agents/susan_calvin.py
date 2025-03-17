@@ -3,7 +3,7 @@ import os
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
-from agents.trafficking_agent_GPT4 import conduct_conversation_stream
+from agents.agent_local import conduct_conversation_stream
 
 MODELS = {
 
@@ -66,7 +66,7 @@ def validate_model_choice(model_choice):
 
 def configure_and_conduct_conversation(initial_input_text, modo_experimento):
     if modo_experimento:
-        chosen_model = "deepseek-r1-distill-llama-70b" # Se for o Modo Experimentos Iartes, pula a introdução e escolhe o "   " automaticamente
+        chosen_model = "sushruth/solar-uncensored:latest" # Se for o Modo Experimentos Iartes, pula a introdução e escolhe o "   " automaticamente
         print("🚀 Iniciando Experimento Iartes com ", chosen_model," como modelo alvo")
     else:
         chosen_model = introduction_agent()

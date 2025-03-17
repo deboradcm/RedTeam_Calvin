@@ -1,0 +1,11 @@
+.env
+*.pyc
+__pycache__/
+test_agent_memory.db
+test_memory.db
+path_to_your_db
+agent_memory.db-shm
+agent_memory.db-wal
+erro.log
+session_name.session
+../venv/

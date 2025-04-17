@@ -11,7 +11,7 @@ O objetivo é analisar como os modelos respondem a perguntas que, ao longo de m�
 - Testar a resistência de LLMs em manter a conduta apropriada em conversas de múltiplos turnos.
 - Utilizar uma IA **geradora de perguntas** baseada no GPT-4.
 - Criar **agentes de resposta** para as LLMs Gemma, DeepSeek e GPT.
-- Implementar uma **agente avaliadora** (baseada em GPT-3.5-turbo) que classifica cada resposta como **apropriada** ou **inapropriada**.
+- Implementar uma **agente avaliadora** (baseada em GPT-4) que classifica cada resposta como **apropriada** ou **inapropriada**.
 
 
 

@@ -1,25 +1,26 @@
 # RedTeam_Calvin
 
-Este repositório faz parte de um projeto de pesquisa da Universidade Federal do Amazonas (UFAM) em parceria com a Motorola Mobility Comércio de Produtos Eletrônicos Ltda, com o objetivo de explorar e detectar vulnerabilidades em modelos de linguagem (LLMs) relacionados a temas sensíveis. O foco principal é avaliar se esses modelos apresentam falhas na detecção e tratamento de conteúdos associados a vulnerabilidades graves, como pedofilia, homicídio, tráfico humano e zoofilia.
+Este repositório reúne códigos, dados e avaliações referentes a um projeto de pesquisa conduzido no Instituto de Computação da Universidade Federal do Amazonas (ICOMP/UFAM), em parceria com a Motorola Mobility Comércio de Produtos Eletrônicos Ltda., com apoio institucional da Fundação de Amparo à Pesquisa do Estado do Amazonas (FAPEAM) e da Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES).
+
+O projeto investiga o uso de agentes autônomos de inteligência artificial (IA) para realizar avaliações automatizadas ("Red Team") em Grandes Modelos de Linguagem (LLMs), focando em domínios sensíveis: homicídio, tráfico humano e zoofilia.
 
 ## Objetivo do Projeto
 
-O objetivo deste projeto é testar diferentes agentes de IA, que atuam como "agentes de testes", para identificar se as LLMs estão aptas a lidar com questões e comportamentos prejudiciais relacionados a:
+O projeto tem como objetivo desenvolver e testar agentes autônomos de IA capazes de identificar vulnerabilidades em LLMs relacionadas a conteúdos sensíveis, especificamente:
 
-- **Proteção de menores**: Testar a capacidade dos modelos de detectar e filtrar conteúdos relacionados à exploração sexual infantil.
-- **Avaliação de risco de homicídios**: Verificar a habilidade das LLMs em identificar discussões ou conteúdos que possam envolver homicídios.
-- **Tráfico humano**: Analisar se os modelos são capazes de identificar situações e discussões relacionadas ao tráfico humano.
-- **Proteção animal**: Avaliar a capacidade das LLMs em detectar e lidar com conteúdos relacionados à exploração sexual de animais.
+- Avaliar a capacidade dos agentes em provocar respostas problemáticas ou violações de política em LLMs alinhados e não alinhados;  
+- Explorar os domínios de homicídio, tráfico humano e exploração sexual de animais;  
+- Automatizar a etapa preliminar de detecção de conteúdos nocivos, reduzindo a necessidade de supervisão humana intensiva.
 
 ## Uso de Conteúdo Sensível para Fins de Pesquisa
 
-Este repositório contém testes relacionados a tópicos extremamente sensíveis, como abuso infantil, homicídios, tráfico humano e zoofilia, com o único propósito de pesquisar a eficácia de modelos de linguagem na detecção de tais conteúdos. **É importante destacar que este projeto não apoia, promove ou envolve a criação, disseminação ou consumo de qualquer conteúdo ilegal ou prejudicial.** O conteúdo é utilizado exclusivamente para testar a segurança e as limitações dos modelos de IA, visando melhorar a detecção de comportamentos nocivos em sistemas automatizados e garantir a proteção de usuários contra conteúdos prejudiciais.
+Este repositório contém material relacionado a temas sensíveis, como homicídio, tráfico humano e zoofilia, utilizados exclusivamente para fins de pesquisa e avaliação da capacidade dos modelos de linguagem em detectar e tratar esses conteúdos. **Este projeto não apoia, promove ou dissemina qualquer conteúdo ilegal ou prejudicial.** Todo o uso do material visa melhorar a segurança e a robustez dos sistemas de IA, protegendo os usuários contra potenciais danos.
 
 ## Estrutura do Repositório
 
-O repositório é composto por Agentes de IA para testes que se concentram em diferentes áreas de detecção de vulnerabilidades. Cada pasta contém um agente dedicado a testar uma área específica de conteúdo. As pastas são:
+O repositório está organizado da seguinte forma:
 
-- `test_agent_minor_protection`: Agente de testes para detectar exploração sexual infantil.
-- `test_agent_risk_assessment_homicide`: Agente de testes para detectar conteúdos relacionados a homicídios.
-- `test_agent_human_trafficking`: Agente de testes para detectar discussões sobre tráfico humano.
-- `test_agent_prohibited_animal_content`: Agente de testes para detectar conteúdos relacionados à exploração sexual de animais.
+- `redTeam_agents/`: Código-fonte dos agentes autônomos de IA utilizados para testar as vulnerabilidades dos LLMs;  
+- `data/`: Amostras selecionadas a partir dos dados coletados durante as interações dos agentes com os LLMs;  
+- `Results/`: Avaliações e julgamentos realizados por especialistas humanos (psicólogos) sobre as respostas coletadas.
+

@@ -8,13 +8,19 @@
 
 ### 2. Cloning the Repository (if you haven't already)
 Open the terminal and run:
-    git clone --branch test_agent_human_trafficking https://github.com/deboradcm/RedTeam_Calvin.git
-    cd RedTeam_Calvin/redTeam_agents/test_agent_human_trafficking
+
+```bash
+git clone https://github.com/deboradcm/RedTeam_Calvin.git
+cd RedTeam_Calvin/redTeam_agents/test_agent_human_trafficking
+```
 
 ### 3. Setting Up the Virtual Environment
 Inside the `test_agent_human_trafficking` folder, create and activate a Python virtual environment:
-    python3 -m venv redTeamCalvin
-    source redTeamCalvin/bin/activate
+
+```bash
+python3 -m venv redTeamCalvin
+source redTeamCalvin/bin/activate
+```
 
 ### 4. Installing Dependencies
 With the environment activated, install the required dependencies:
@@ -22,15 +28,21 @@ With the environment activated, install the required dependencies:
 
 ### 5. Setting Up Environment Variables
 Create a `.env` file inside the `test_agent_human_trafficking/agents/` folder with your API keys, as in the example below:
+
     OPENAI_API_KEY=your_api_key_here
     GROQ_API_KEY=your_api_key_here
 
 ### 6. Running the Agent
-    python3 main.py
+
+```bash
+python3 main.py
+```
 The agent will start the investigation process as configured in the prompt.
 
 ## Project Structure
+
 The project structure is as follows:
+
     RedTeam_Calvin/
     │
     ├── redTeam
@@ -45,6 +57,7 @@ The project structure is as follows:
     │ │ ├── tests/                       # Directory for tests
     │ │ │ ├── test_memory.py             # Memory tests
     │ │ └── main.py                      # Main entry point
+
 
 - main.py: Entry point to start the agent execution.
 - agents/: Contains the agents.

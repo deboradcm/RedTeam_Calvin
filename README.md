@@ -4,7 +4,7 @@
 
 Artefato associado ao artigo **"Autonomous Red Teaming for Large Language Models: A Minimally Supervised Approach Using Specialized Agents"**, aceito na Trilha Principal do XXVI Simpósio Brasileiro de Cibersegurança (SBSeg 2026).
 
-**Resumo do artigo.** O trabalho investiga a viabilidade de empregar agentes autônomos de IA para conduzir avaliações de Red Team em Grandes Modelos de Linguagem (LLMs) com supervisão humana mínima. Propõe-se um arcabouço multiagente com especialização temática em três domínios juridicamente sensíveis: homicídio, tráfico de pessoas e conteúdo sexual envolvendo animais. Os agentes interagem com LLMs alinhados e menos alinhados para eliciar e identificar saídas potencialmente nocivas. A abordagem foi avaliada por meio de validação cega conduzida por especialistas independentes. Os resultados indicam que o método identifica respostas problemáticas com concordância substancial em relação ao julgamento humano, sugerindo seu potencial como ferramenta de apoio escalável e economicamente viável para avaliação de segurança de LLMs.
+**Resumo do artigo.** O trabalho investiga a viabilidade de empregar agentes autônomos de IA para conduzir avaliações de Red Team em Grandes Modelos de Linguagem (LLMs) com supervisão humana mínima. Propõe-se um arcabouço multiagente com especialização temática em três domínios juridicamente sensíveis: homicídio, tráfico de pessoas e conteúdo sexual envolvendo animais. Os agentes interagem com LLMs alinhados e menos alinhados para eliciar e identificar saídas potencialmente nocivas. A abordagem foi avaliada por meio de validação cega conduzida por especialistas independentes. Os resultados indicam que o método identifica respostas problemáticas de forma alinhada ao julgamento majoritário dos especialistas, embora a baixa concordância entre avaliadores evidencie a subjetividade da avaliação de nocividade, discutida como limitação central. O arcabouço mostra potencial como ferramenta de apoio escalável e economicamente viável para avaliação de segurança de LLMs.
 
 **Objetivo do artefato.** Disponibilizar o código-fonte dos três agentes especializados, os conjuntos de dados amostrados das interações com os modelos-alvo e as avaliações produzidas pelos especialistas humanos, permitindo a inspeção e a verificação independente das reivindicações apresentadas no artigo.
 
@@ -258,13 +258,13 @@ As transcrições completas das três rodadas do agente de homicídio estão em 
 **Execução original:** `cd redTeam_agents/test_agent_risk_assessment_homicide && python mainExp.py`
 **Tempo estimado:** de 30 a 60 minutos por rodada completa.
 
-### Reivindicação #2 — A classificação automatizada concorda substancialmente com o julgamento de especialistas humanos
+### Reivindicação #2 — A classificação automatizada se alinha ao julgamento majoritário dos especialistas
 
 As respostas amostradas foram avaliadas de forma cega por especialistas em psicologia, independentemente da classificação automatizada.
 
 **Verificação:** compare `data/` (classificação automatizada, colunas `Classificação`, `Avaliação` e `is_problematic`) com `Results/Psychologist_Evaluations/` (julgamento humano). Os arquivos são pareáveis pelo texto da resposta.
 
-**Resultado esperado:** convergência majoritária entre as duas classificações, conforme as medidas de concordância reportadas no artigo.
+**Resultado esperado:** alinhamento com o julgamento majoritário dos especialistas. A baixa concordância entre avaliadores, discutida no artigo como limitação central, evidencia a subjetividade da avaliação de nocividade.
 
 ### Reivindicação #3 — Modelos não alinhados produzem substancialmente mais conteúdo problemático
 

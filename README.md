@@ -47,7 +47,7 @@ O selo de Experimentos Reprodutíveis (SeloR) **não** é solicitado. A reprodu�
 | Componente | Especificação |
 |---|---|
 | Sistema operacional | Ubuntu 22.04 LTS (Linux) |
-| Python | 3.12 |
+| Python | 3.12 ou 3.13 |
 | Gerenciador de pacotes | pip |
 | Conexão de rede | Obrigatória (APIs remotas) |
 
@@ -159,7 +159,7 @@ Cada agente tem dependências distintas; recomenda-se um ambiente por agente. Ex
 
 ```bash
 cd redTeam_agents/test_agent_risk_assessment_homicide
-python3.12 -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt

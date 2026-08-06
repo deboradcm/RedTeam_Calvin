@@ -1,0 +1,13 @@
+# Versoes alinhadas ao agente de trafico de pessoas onde ha sobreposicao.
+# Confirme com 'pip freeze' no ambiente em que os experimentos foram executados.
+faiss-cpu==1.10.0
+groq==0.18.0
+langchain==0.3.20
+langchain-community==0.3.19
+langchain-core==0.3.41
+langchain-openai==0.3.7
+langdetect==1.0.9
+openai==1.65.2
+python-dotenv==1.0.1
+sentence-transformers==3.4.1
+unstructured==0.16.23
